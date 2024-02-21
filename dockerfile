@@ -8,8 +8,10 @@ RUN mkdir -p internal/usecase
 
 COPY go.mod ./
 COPY cmd/main.go ./cmd
-COPY internal/model/reportTestStress.go ./internal/model
+COPY internal/model/report.go ./internal/model
+COPY internal/model/config.go ./internal/model
 COPY internal/usecase/testStress.go ./internal/usecase
+COPY internal/usecase/testStress_test.go ./internal/usecase
 
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o go-teststress cmd/main.go

@@ -64,3 +64,12 @@ func CarregarParams() Config {
 
 	return config
 }
+
+func CarregarParamsParaTest() Config {
+	config := Config{
+		url:             "http://google.com",
+		qtdeConcurrency: 10,
+		qtdeRequests:    5,
+	}
+	return config
+}
