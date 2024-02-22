@@ -12,6 +12,13 @@ func (c *Config) Validar() {
 	c.validarUrl()
 	c.validarQtdConcurrency()
 	c.validarQtdeRequests()
+	c.validarQtdeRequestMenorQtdeConcurrency()
+}
+
+func (c *Config) validarQtdeRequestMenorQtdeConcurrency() {
+	if c.qtdeRequests < c.qtdeConcurrency {
+		panic("Informe uma quantidade de requests maior que de concurrency. ")
+	}
 }
 
 func (c *Config) validarUrl() {
@@ -45,7 +52,7 @@ func (c *Config) GetQtdeConcurrency() int {
 }
 
 func (c *Config) GetQtdeResquesLoop() int {
-	return c.qtdeConcurrency / c.qtdeRequests
+	return c.qtdeRequests / c.qtdeConcurrency
 }
 
 func CarregarParams() Config {
@@ -56,8 +63,8 @@ func CarregarParams() Config {
 
 	config := Config{
 		url:             *xUrl,
-		qtdeConcurrency: *xRequests,
-		qtdeRequests:    *xConcurrency,
+		qtdeConcurrency: *xConcurrency,
+		qtdeRequests:    *xRequests,
 	}
 
 	config.Validar()
@@ -69,7 +76,7 @@ func CarregarParamsParaTest() Config {
 	config := Config{
 		url:             "http://google.com",
 		qtdeConcurrency: 10,
-		qtdeRequests:    5,
+		qtdeRequests:    50,
 	}
 	return config
 }

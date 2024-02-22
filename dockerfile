@@ -14,12 +14,13 @@ COPY internal/usecase/testStress.go ./internal/usecase
 COPY internal/usecase/testStress_test.go ./internal/usecase
 
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o go-teststress cmd/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o go-teststress cmd/main.go
 
-FROM alpine:latest
+FROM scratch
 
 WORKDIR /app
 
 COPY --from=builder /app/go-teststress .
 
 ENTRYPOINT ["./go-teststress"]
+
