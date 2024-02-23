@@ -44,7 +44,7 @@ func ExecuteTestStress(c *model.Config) model.ReportTestStress {
 				}
 				resp.Body.Close()
 			} else {
-				errorStatusCodes[0]++
+				errorStatusCodes[http.StatusServiceUnavailable]++
 			}
 		}
 
