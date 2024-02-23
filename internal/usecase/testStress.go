@@ -42,9 +42,15 @@ func ExecuteTestStress(c *model.Config) model.ReportTestStress {
 				} else {
 					errorStatusCodes[resp.StatusCode]++
 				}
-				resp.Body.Close()
 			} else {
-				errorStatusCodes[http.StatusServiceUnavailable]++
+				if resp != nil {
+					errorStatusCodes[resp.StatusCode]++
+				} else {
+					errorStatusCodes[http.StatusServiceUnavailable]++
+				}
+			}
+			if resp != nil {
+				resp.Body.Close()
 			}
 		}
 
